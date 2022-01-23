@@ -1,0 +1,112 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Model-viewer Course: Canon</title>
+  <meta name="description" content="Examples from my model-viewer course">
+  <meta name="author" content="Nik Lever">
+
+  <meta property="og:title" content="Model-viewer Course">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://niklever.com/courses/model-viewer">
+  <meta property="og:description" content="Examples from my model-viewer course">
+  <meta property="og:image" content="image.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32 " href="../assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../assets/favicon/site.webmanifest">
+
+  <link rel="stylesheet" href="../css/styles.css">
+
+  <style>
+    body{
+        background: repeating-linear-gradient(
+                      39deg,
+                      #606dbc,
+                      #606dbc 60px,
+                      #465298 60px,
+                      #465298 120px
+                    );
+    }
+    model-viewer{
+        width: 80%;
+        height: 600px;
+        margin: 0 15%;
+    }
+    .btns{
+      position:absolute;
+      width: 100px;
+      height: 100%;
+      margin: 20px;
+      top: 10%;
+    }
+    .round-btn{
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      width: 100px;
+      height: 100px;
+      border: none;
+      border-radius: 50%;
+      margin: 20px;
+      color: #fff;
+      font-size: 18px;
+      background-color: #000;
+      transition: transform 250ms;
+    }
+
+    .round-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .strip{
+      position: absolute;
+      left: 93px;
+      top: 0;
+      width: 1%;
+      height: 100%;
+      background-color: #000;
+    }
+
+    #orbit-btn{
+      display: none;
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Import the component -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <div class="strip"></div>
+  <div class="btns">
+    <button class="round-btn" onclick="setOrbit('-0.691150383789755rad 1.3927727430914751rad 0.24716685291816912m')">Front</button>
+    <button class="round-btn" onclick="setOrbit('-3.0159289474461928rad 1.476548547187203rad 0.24716685291816912m')">Viewfinder</button>
+    <button class="round-btn" onclick="setOrbit('-5.403539364174435rad 1.445132620651305rad 0.1947910091209189m')">Lens</button>
+  </div>
+  <button id="orbit-btn" onClick="getOrbit()">Get Orbit</button>
+
+  <!-- Use it like any other HTML element -->
+  <model-viewer id="canon" src="../assets/canon-at.glb" alt="A 3D model of a retro Canon AT camera" 
+                environment-image="../assets/hdr/apartment.hdr" ></model-viewer>
+  
+  <script>
+    function getOrbit(){
+      const modelViewer = document.querySelector('#canon');
+      console.log(`recordOrbit ${modelViewer.getCameraOrbit()}`);
+    }
+    function setOrbit(orbit){
+      const modelViewer = document.querySelector('#canon');
+      modelViewer.cameraOrbit = orbit;
+      console.log('setOrbit');
+    }
+  </script>
+</body>
+</html>
