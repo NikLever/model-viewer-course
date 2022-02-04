@@ -36,25 +36,7 @@
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <!-- Use it like any other HTML element -->
-  <model-viewer id="knight" src="../assets/knight.glb" alt="A 3D model of a cartoon animated knight" ar 
-                ar-modes="webxr scene-viewer quick-look" environment-image="neutral" 
-                camera-controls autoplay animation-name="Look Around"></model-viewer>
+  <model-viewer id="knight" src="../assets/knight2.glb" alt="A 3D model of a cartoon animated knight" camera-controls></model-viewer>
   
-  <script>
-    const modelViewer = document.querySelector("model-viewer#knight");
-    
-    modelViewer.addEventListener("load", (ev) => {
-    
-      let material = modelViewer.model.getMaterialByName('CubeMat');
-      material.pbrMetallicRoughness.setBaseColorFactor([1,1,1,0]);
-
-      const animNames = ['Look Around', 'Walking', 'Die', 'Dance'];
-
-      self.setInterval(() => {
-        modelViewer.animationName = animNames[Math.floor(Math.random() * animNames.length)];
-      }, 5000.0);
-
-    })
-    </script>
 </body>
 </html>
