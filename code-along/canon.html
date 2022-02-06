@@ -86,27 +86,10 @@
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <div class="strip"></div>
-  <div class="btns">
-    <button class="round-btn" onclick="setOrbit('-0.691150383789755rad 1.3927727430914751rad 0.24716685291816912m')">Front</button>
-    <button class="round-btn" onclick="setOrbit('-3.0159289474461928rad 1.476548547187203rad 0.24716685291816912m')">Viewfinder</button>
-    <button class="round-btn" onclick="setOrbit('-5.403539364174435rad 1.445132620651305rad 0.1947910091209189m')">Lens</button>
-  </div>
-  <button id="orbit-btn" onClick="getOrbit()">Get Orbit</button>
 
   <!-- Use it like any other HTML element -->
   <model-viewer id="canon" src="../assets/canon-at.glb" alt="A 3D model of a retro Canon AT camera" 
                 environment-image="../assets/hdr/apartment.hdr" ></model-viewer>
   
-  <script>
-    function getOrbit(){
-      const modelViewer = document.querySelector('#canon');
-      console.log(`recordOrbit ${modelViewer.getCameraOrbit()}`);
-    }
-    function setOrbit(orbit){
-      const modelViewer = document.querySelector('#canon');
-      modelViewer.cameraOrbit = orbit;
-      console.log('setOrbit');
-    }
-  </script>
 </body>
 </html>
