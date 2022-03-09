@@ -36,6 +36,7 @@
         width: 80%;
         height: 600px;
         margin: 0 15%;
+        --poster-color: transparent;
     }
     .btns{
       position:absolute;
@@ -95,7 +96,8 @@
 
   <!-- Use it like any other HTML element -->
   <model-viewer id="canon" src="../assets/canon-at.glb" alt="A 3D model of a retro Canon AT camera" 
-                environment-image="../assets/hdr/apartment.hdr" ></model-viewer>
+                environment-image="../assets/hdr/apartment.hdr" poster="blank.png" camera-controls
+                interaction-prompt="none"></model-viewer>
   
   <script>
     function getOrbit(){

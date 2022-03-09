@@ -29,6 +29,27 @@
         body{
             padding-top: 3.5rem;
         }
+
+        .col-md-4 img{
+          width: 100%;
+        }
+
+        .code-along{
+          position: absolute;
+          bottom: 75px;
+        }
+
+        .complete{
+          margin-top: auto;
+        }
+
+        .jumbotron{
+            background: url("images/course-image.png") no-repeat center center #ccc; 
+            -webkit-background-size: 100% 100%;
+            -moz-background-size: 100% 100%;
+            -o-background-size: 100% 100%;
+            background-size: auto 100%;
+        }
     </style>
   </head>
 
@@ -76,48 +97,54 @@
           <p><a class="btn btn-primary btn-lg" href="https://niklever.com/courses" role="button">Get the course &raquo;</a></p>
         </div>
       </div>
-
-      <div class="container">
-        <!-- Example row of columns -->
+      
+<div class="container">
+  <!-- Example row of columns -->
         <div class="row">
-          <div class="col-md-4">
-            <h2>Steampunk Camera</h2>
-            <p>A simple example, illustrating loading and ar modes</p>
-            <p><a class="btn btn-secondary" href="code-along/camera.html" role="button">Code-along</a>
-            <a class="btn btn-secondary" href="examples/camera.html" role="button">Complete</a></p>
+          <div class="col-md-4 card-body d-flex flex-column">
+            <img src="images/steampunk.png" class="rounded mx-auto d-block" alt="Steampunk Camera" />
+            <h1 class="card-title pricing-card-title">Steampunk Camera</h1>
+            <p>A simple example, illustrating loading and ar modes</p><br>
+            <a href="code-along/camera.html" class="code-along"><strong>Code-along</strong></a>
+            <a type="button" class="align-self-end btn btn-lg btn-block btn-primary complete" href="examples/camera.html">Complete</a>
           </div>
-          <div class="col-md-4">
-            <h2>Knight</h2>
-            <p>An example showing animation of a character</p>
-            <p><a class="btn btn-secondary" href="code-along/knight.html" role="button">Code-along</a>
-            <a class="btn btn-secondary" href="examples/knight.html" role="button">Complete</a></p>
+          <div class="col-md-4 card-body d-flex flex-column">
+            <img src="images/knight.png" class="rounded mx-auto d-block" alt="Knight" />
+            <h1 class="card-title pricing-card-title">Knight</h1>
+            <p>An example showing animation of a character</p><br>
+            <a href="code-along/knight.html" class="code-along"><strong>Code-along</strong></a>
+            <a type="button" class="align-self-end btn btn-lg btn-block btn-primary complete" href="examples/knight.html">Complete</a>
           </div>
-          <div class="col-md-4">
-            <h2>Shop</h2>
-            <p>Using &lt;model-viewer&gt; for an online shop, with AR</p>
-            <p><a class="btn btn-secondary" href="code-along/shop.html" role="button">Code-along</a>
-            <a class="btn btn-secondary" href="examples/shop.html" role="button">Complete</a></p>
+          <div class="col-md-4 card-body d-flex flex-column">
+            <img src="images/shop.png" class="rounded mx-auto d-block" alt="Shop" />
+            <h1 class="card-title pricing-card-title">Shop</h1>
+            <p>Using &lt;model-viewer&gt; for an online shop, with AR</p><br>
+            <a href="code-along/shop.html" class="code-along"><strong>Code-along</strong></a>
+            <a type="button" class="align-self-end btn btn-lg btn-block btn-primary complete" href="examples/shop.html">Complete</a>
           </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
-                <h2>Canon AT Retro Camera</h2>
-                <p>Using camera orbit to highlight certain features</p>
-                <p><a class="btn btn-secondary" href="code-along/canon.html" role="button">Code-along</a>
-                <a class="btn btn-secondary" href="examples/canon.html" role="button">Complete</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>BMW S-1000</h2>
-                <p>An example of using hotspots</p>
-                <p><a class="btn btn-secondary" href="code-along/motorcycle/index.html" role="button">Code-along</a>
-                <a class="btn btn-secondary" href="examples/motorcycle/index.html" role="button">Complete</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>Twitter</h2>
-                <p>A Twitter card</p>
-                <p><a class="btn btn-secondary" href="code-along/twitter.html" role="button">Code-along</a>
-                <a class="btn btn-secondary" href="examples/twitter.html" role="button">Complete</a></p>
-            </div>
+          <div class="col-md-4 card-body d-flex flex-column">
+            <img src="images/canon.png" class="rounded mx-auto d-block" alt="Canon AT Camera" />
+            <h1 class="card-title pricing-card-title">Canon AT Retro Camera</h1>
+            <p>Using camera orbit to highlight certain features</p><br>
+            <a href="code-along/canon.html" class="code-along"><strong>Code-along</strong></a>
+            <a type="button" class="align-self-end btn btn-lg btn-block btn-primary complete" href="examples/canon.html">Complete</a>
+          </div>
+          <div class="col-md-4 card-body d-flex flex-column">
+            <img src="images/bmw.png" class="rounded mx-auto d-block" alt="BMW S1000" />
+            <h1 class="card-title pricing-card-title">BMW S-1000</h1>
+            <p>A high-performance motorcycle</p><br>
+            <a href="code-along/motorcycle/index.html" class="code-along"><strong>Code-along</strong></a>
+            <a type="button" class="align-self-end btn btn-lg btn-block btn-primary complete" href="examples/motorcycle/index.html">Complete</a>
+          </div>
+          <div class="col-md-4 card-body d-flex flex-column">
+            <img src="images/bmw.png" class="rounded mx-auto d-block" alt="BMW S1000" />
+            <h1 class="card-title pricing-card-title">Twitter</h1>
+            <p>A Twitter card</p><br>
+            <a href="code-along/tw-bmw.html" class="code-along"><strong>Code-along</strong></a>
+            <a type="button" class="align-self-end btn btn-lg btn-block btn-primary complete" href="https://twitter.com/NikLever/status/1483118678900105216">Complete</a>
+          </div>
         </div>
 
         <hr>
