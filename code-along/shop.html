@@ -28,6 +28,12 @@
   <!-- Custom styles for this template -->
   <link href="../css/shop.css" rel="stylesheet">
 
+  <style>
+    model-viewer{
+      width: 100%;
+      aspect-ratio: 4/7;
+    }
+  </style>
 </head>
 
 <body>
@@ -114,7 +120,12 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-                <img src="../assets/ar-shop/chair1.jpg" alt="A 3D model of a chair" />
+                <model-viewer src="../assets/ar-shop/chair1.glb" 
+                              alt="A 3D model of a chair" 
+                              poster="../assets/ar-shop/chair1.jpg"
+                              reveal="interaction"
+                              camera-controls
+                              ar ar-modes="webxr scene-viewer quick-look"></model-viewer>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">Item One</a>
@@ -132,7 +143,12 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <img src="../assets/ar-shop/chair2.jpg" alt="A 3D model of a chair" />
+              <model-viewer src="../assets/ar-shop/chair2.glb" 
+                              alt="A 3D model of a chair" 
+                              poster="../assets/ar-shop/chair2.jpg"
+                              reveal="interaction"
+                              camera-controls
+                              ar ar-modes="webxr scene-viewer quick-look"></model-viewer>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">Item Two</a>
@@ -149,7 +165,12 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <img src="../assets/ar-shop/chair3.jpg" alt="A 3D model of a chair" />
+              <model-viewer src="../assets/ar-shop/chair3.glb" 
+                              alt="A 3D model of a chair" 
+                              poster="../assets/ar-shop/chair3.jpg"
+                              reveal="interaction"
+                              camera-controls
+                              ar ar-modes="webxr scene-viewer quick-look"></model-viewer>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">Item Three</a>
@@ -166,7 +187,12 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <img src="../assets/ar-shop/chair4.jpg" alt="A 3D model of a chair" />
+              <model-viewer src="../assets/ar-shop/chair4.glb" 
+                              alt="A 3D model of a chair" 
+                              poster="../assets/ar-shop/chair4.jpg"
+                              reveal="interaction"
+                              camera-controls
+                              ar ar-modes="webxr scene-viewer quick-look"></model-viewer>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">Item Four</a>
@@ -183,7 +209,12 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <img src="../assets/ar-shop/chair5.jpg" alt="A 3D model of a chair" />
+              <model-viewer src="../assets/ar-shop/chair5.glb" 
+                              alt="A 3D model of a chair" 
+                              poster="../assets/ar-shop/chair5.jpg"
+                              reveal="interaction"
+                              camera-controls
+                              ar ar-modes="webxr scene-viewer quick-look"></model-viewer>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">Item Five</a>
@@ -200,7 +231,12 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <img src="../assets/ar-shop/chair6.jpg" alt="A 3D model of a chair" />
+              <model-viewer src="../assets/ar-shop/chair6.glb" 
+                              alt="A 3D model of a chair" 
+                              poster="../assets/ar-shop/chair6.jpg"
+                              reveal="interaction"
+                              camera-controls
+                              ar ar-modes="webxr scene-viewer quick-look"></model-viewer>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">Item Six</a>
@@ -238,7 +274,7 @@
   <!-- Bootstrap core JavaScript -->
   <script src="../libs/jquery/jquery.min.js"></script>
   <script src="../libs/bootstrap/js/bootstrap.bundle.js"></script>
-
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </body>
 
 </html>
