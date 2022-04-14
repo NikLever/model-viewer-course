@@ -1,0 +1,105 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Model-viewer Course</title>
+  <meta name="description" content="Examples from my model-viewer course">
+  <meta name="author" content="Nik Lever">
+
+  <meta property="og:title" content="Model-viewer Course">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://niklever.com/courses/model-viewer">
+  <meta property="og:description" content="Examples from my model-viewer course">
+  <meta property="og:image" content="image.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32 " href="../../assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../../assets/favicon/site.webmanifest">
+
+  <link rel="stylesheet" href="../../css/styles.css">
+
+  <style>
+    body{
+        background-color: blueviolet;
+    }
+
+    model-viewer{
+        width: 400px;
+        height: 600px;
+        margin: 0 auto;
+        --poster-color: transparent;
+    }
+
+    model-viewer::part(default-progress-mask){
+       display: none;
+    }
+
+    .progress-bar {
+        display: block;
+        width: 33%;
+        height: 10%;
+        max-height: 2%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        border-radius: 25px;
+        box-shadow: 0px 3px 10px 3px rgba(0, 0, 0, 0.5), 0px 0px 5px 1px rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .progress-bar.hide {
+        visibility: hidden;
+        transition: visibility 0.3s;
+    }
+
+    .update-bar {
+        background-color: rgba(255, 255, 255, 0.9);
+        width: 0%;
+        height: 100%;
+        border-radius: 25px;
+        float: left;
+        transition: width 0.3s;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Import the component -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <!-- Use it like any other HTML element -->
+  <model-viewer id="seamless" 
+                src="../../assets/canon-at.glb" 
+                poster="camera.webp"
+                seamless-poster
+                loading="eager"
+                reveal="interaction"
+                camera-controls
+                alt="A Canon AT Camera">
+                <div class="progress-bar hide" slot="progress-bar">
+                    <div class="update-bar"></div>
+                </div>          
+  </model-viewer>
+
+  <script>
+    // Handles loading the events for <model-viewer>'s slotted progress bar
+    const onProgress = (event) => {
+      const progressBar = event.target.querySelector('.progress-bar');
+      const updatingBar = event.target.querySelector('.update-bar');
+      updatingBar.style.width = `${event.detail.totalProgress * 100}%`;
+      if (event.detail.totalProgress === 1) {
+          progressBar.classList.add('hide');
+      } else {
+          progressBar.classList.remove('hide');
+      }
+    };
+    document.querySelector('model-viewer').addEventListener('progress', onProgress);
+  </script>
+</body>
+</html>

@@ -23,15 +23,20 @@
   <link rel="stylesheet" href="../../css/styles.css">
 
   <style>
+      body{
+          background-color: blueviolet;
+      }
+
       model-viewer{
           width: 400px;
           height: 600px;
           margin: 0 auto;
+          --poster-color: transparent;
       }
 
-      button{
-        display: none;
-        margin: 0 auto;
+      model-viewer::part(default-ar-button){
+          bottom: 100px;
+          left: 50%;
       }
   </style>
 </head>
@@ -41,36 +46,15 @@
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <!-- Use it like any other HTML element -->
-  <model-viewer id="screenshot" 
+  <model-viewer id="seamless" 
                 src="../../assets/canon-at.glb" 
-                alt="A Canon AT Camera"  
-                autoplay></model-viewer>
-  <button id="capture">Capture</button>
-  <script>
-    const modelViewer = document.querySelector('#screenshot');
-    const btn = document.querySelector("#capture");
+                poster="../loading/camera.webp"
+                seamless-poster
+                loading="eager"
+                reveal="interaction"
+                camera-controls
+                ar ar-modes="webxr scene-viewer quick-look"
+                alt="A Canon AT Camera"></model-viewer>
 
-    modelViewer.addEventListener('load', () => {
-      btn.style.display = "block";
-    });
-
-    btn.addEventListener('click', ev => {
-        modelViewer.toBlob({mimeType:'image/webp'}).then((blob) => {
-            saveBlob(blob, `screencapture.webp`);
-        });
-    });
-    
-    const saveBlob = (function() {
-        const a = document.createElement('a');
-        document.body.appendChild(a);
-        a.style.display = 'none';
-        return function saveData(blob, fileName) {
-          const url = window.URL.createObjectURL(blob);
-          a.href = url;
-          a.download = fileName;
-          a.click();
-        };
-    }());
-  </script>
 </body>
 </html>

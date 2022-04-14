@@ -23,10 +23,19 @@
   <link rel="stylesheet" href="../../css/styles.css">
 
   <style>
+      body{
+          background-color: blueviolet;
+      }
+
       model-viewer{
           width: 400px;
           height: 600px;
           margin: 0 auto;
+          --poster-color: transparent;
+      }
+
+      model-viewer::part(default-progress-mask){
+          display: none;
       }
   </style>
 </head>
@@ -38,8 +47,8 @@
   <!-- Use it like any other HTML element -->
   <model-viewer id="seamless" 
                 src="../../assets/canon-at.glb" 
-                poster="camera.png"
-                seamless-poster="false"
+                poster="camera.webp"
+                seamless-poster
                 loading="eager"
                 reveal="interaction"
                 camera-controls
