@@ -34,6 +34,38 @@
         to   { transform: translateX(-50%) rotate(360deg) translateX(50px) rotate(-360deg); }
     }
 
+    @keyframes elongate {
+        from { transform: translateX(100px); }
+        to   { transform: translateX(-100px); }
+    }
+
+    model-viewer > #ar-prompt {
+        position: absolute;
+        left: 50%;
+        bottom: 175px;
+        animation: elongate 2s infinite ease-in-out alternate;
+        display: none;
+    }
+
+    model-viewer[ar-status="session-started"] > #ar-prompt {
+        display: block;
+    }
+
+    model-viewer > #ar-prompt > img {
+        animation: circle 4s linear infinite;
+    }
+
+    model-viewer > #ar-failure {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 175px;
+        display: none;
+    }
+
+    model-viewer[ar-tracking="not-tracking"] > #ar-failure {
+        display: block;
+    }
   </style>
 </head>
 
@@ -47,7 +79,12 @@
                     ar ar-modes="webxr scene-viewer quick-look"
                     xr-environment
                     alt="A Chair">
-                
+        <div id="ar-prompt">
+            <img src="../../images/ar-hand.png">
+        </div>
+        <button id="ar-failure">
+            AR is not tracking!
+        </button>         
     </model-viewer>
 
 </body>
