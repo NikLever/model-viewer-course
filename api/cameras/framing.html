@@ -24,8 +24,8 @@
 
   <style>
       model-viewer{
-          width: 400px;
-          height: 600px;
+          width: 500px;
+          height: 700px;
           margin: 0 auto;
       }
   </style>
@@ -36,21 +36,26 @@
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <!-- Use it like any other HTML element -->
-  <model-viewer id="knight"
-                src="../../assets/knight.glb" 
-                camera-controls
-                enable-pan
-                autoplay
-                alt="A cartoon knight"></model-viewer>
-
+  <model-viewer id="transform"
+                src="../../assets/canon-at.glb" 
+                alt="A chair">
+    <div class="controls">
+      <div>Scale: <input id="scale" value="1" size="3" class="number"></div>
+      <button id="frame">Update Framing</button>
+    </div>            
+  </model-viewer>
   <script>
-    const modelViewer = document.querySelector("#knight");
-
-    modelViewer.addEventListener("load", (ev) => {
-      
-      let material = modelViewer.model.getMaterialByName('CubeMat');
-      material.pbrMetallicRoughness.setBaseColorFactor([1,1,1,0]);
+    const modelViewerTransform = document.querySelector("model-viewer#transform");
+    const scale = document.querySelector('#scale');
+    const frame = document.querySelector('#frame');
+    
+    frame.addEventListener('click', () => {
+      modelViewerTransform.updateFraming();
     });
-  </script>
+    
+    scale.addEventListener('input', () => {
+      modelViewerTransform.scale = `${scale.value} ${scale.value} ${scale.value}`;
+    });
+    </script>
 </body>
 </html>

@@ -24,7 +24,7 @@
 
   <style>
       model-viewer{
-          width: 400px;
+          width: 800px;
           height: 600px;
           margin: 0 auto;
       }
@@ -36,21 +36,28 @@
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <!-- Use it like any other HTML element -->
-  <model-viewer id="knight"
-                src="../../assets/knight.glb" 
-                camera-controls
-                enable-pan
-                autoplay
-                alt="A cartoon knight"></model-viewer>
-
+  <model-viewer id="rotation"
+                src="../../assets/ar-shop/chair6.glb"
+                auto-rotate
+                auto-rotate-delay="1000"
+                rotation-per-second="60deg" 
+                alt="A chair">
+    <div id="yaw">Yaw: 0</div>  
+    <button id="reset">Reset Rotation</button>
+  </model-viewer>
   <script>
-    const modelViewer = document.querySelector("#knight");
+    const modelViewer = document.querySelector("#rotation");
+    const yaw = document.querySelector('#yaw');
+    const reset = document.querySelector('#reset');
+    
+    reset.addEventListener("click", (ev) => {
+      modelViewer.resetTurntableRotation(0);
+    })
+    
+    setInterval(()=>{
+      const str = Math.floor(modelViewer.turntableRotation / Math.PI * 180);
+      yaw.innerHTML = `Yaw: ${str}deg`}, 100);
+</script>
 
-    modelViewer.addEventListener("load", (ev) => {
-      
-      let material = modelViewer.model.getMaterialByName('CubeMat');
-      material.pbrMetallicRoughness.setBaseColorFactor([1,1,1,0]);
-    });
-  </script>
 </body>
 </html>
