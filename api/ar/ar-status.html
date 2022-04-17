@@ -23,47 +23,17 @@
   <link rel="stylesheet" href="../../css/styles.css">
 
   <style>
-    body{
-        background-color: blueviolet;
-    }
-
     model-viewer{
         width: 400px;
         height: 600px;
         margin: 0 auto;
-        --poster-color: transparent;
     }
 
-    #ar-button {
-        background-image: url(../../images/ar-icon.png);
-        background-repeat: no-repeat;
-        background-size: 50px 50px;
-        background-position: 8px 50%;
-        background-color: #fff;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        white-space: nowrap;
-        bottom: 132px;
-        color:#4285f4;
-        height: 70px;
-        width: 70px;
-        border-radius: 35px;
-        border: 1px solid #DADCE0;
-        cursor: pointer;
+    @keyframes circle {
+        from { transform: translateX(-50%) rotate(0deg) translateX(50px) rotate(0deg); }
+        to   { transform: translateX(-50%) rotate(360deg) translateX(50px) rotate(-360deg); }
     }
 
-    #ar-button:active {
-        background-color: #E8EAED;
-    }
-
-    #ar-button:focus {
-        outline: none;
-    }
-
-    #ar-button:focus-visible {
-        outline: 1px solid #4285f4;
-    }
   </style>
 </head>
 
@@ -72,17 +42,12 @@
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
     <!-- Use it like any other HTML element -->
-    <model-viewer id="seamless" 
-                src="../../assets/canon-at.glb" 
-                poster="../loading/camera.webp"
-                seamless-poster
-                loading="eager"
-                reveal="interaction"
-                camera-controls
-                ar ar-modes="webxr scene-viewer quick-look"
-                alt="A Canon AT Camera">
-        <button slot="ar-button" id="ar-button">
-        </button>
+    <model-viewer   src="../../assets/ar-shop/chair2.glb" 
+                    camera-controls
+                    ar ar-modes="webxr scene-viewer quick-look"
+                    xr-environment
+                    alt="A Chair">
+                
     </model-viewer>
 
 </body>
