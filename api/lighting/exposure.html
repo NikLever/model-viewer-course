@@ -23,10 +23,18 @@
   <link rel="stylesheet" href="../../css/styles.css">
 
   <style>
+      body{
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
       model-viewer{
-          width: 400px;
+          width: 600px;
           height: 600px;
           margin: 0 auto;
+      }
+
+      #exposure-value{
+        display: inline-block;
       }
   </style>
 </head>
@@ -36,10 +44,26 @@
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <!-- Use it like any other HTML element -->
-  <model-viewer src="../../assets/knight.glb" 
+  <model-viewer id="exposure-demo"
+                src="../../assets/steampunk_camera.glb" 
+                shadow-intensity="0.8"
+                interaction-prompt="none"
                 camera-controls
-                enable-pan
-                alt="A cartoon knight"></model-viewer>
+                alt="steampunk_camera">
+    <label for="exposure">Exposure:</label>
+    <input id="exposure" type="range" min="0" max="3" value="1" step="0.1" /> 
+    <div id="exposure-value">1</div>           
+  </model-viewer>
 
+  <script>
+    const modelViewer = document.querySelector("#exposure-demo");
+    const exposure = document.querySelector("#exposure");
+    const exposureValue = document.querySelector("#exposure-value");
+
+    exposure.oninput = (ev) => {
+      modelViewer.exposure = Number(exposure.value);
+      exposureValue.innerHTML = exposure.value;
+    };
+  </script>
 </body>
 </html>
