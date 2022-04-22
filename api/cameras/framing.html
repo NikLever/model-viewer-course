@@ -41,7 +41,8 @@
                 camera-controls
                 alt="A camera">
     <div class="controls">
-      <div>Scale: <input id="scale" value="1" size="3" class="number"></div>
+      <div>Scale: <input id="scale" type="range" value="1" min="0.5" max="3" step="0.1"></div> 
+      <div>Roll: <input id="roll" type="range" value="0" min="0" max="360"></div>
       <div id="orbit">Orbit: </div>
       <button id="frame">Update Framing</button>
     </div>            
@@ -49,15 +50,16 @@
   <script>
     const modelViewer = document.querySelector("model-viewer#transform");
     const scale = document.querySelector('#scale');
+    const roll = document.querySelector('#roll');
     const frame = document.querySelector('#frame');
     const orbit = document.querySelector('#orbit');
     
     modelViewer.addEventListener('load', (ev) => {
-      orbit.innerHTML = `Orbit: ${modelViewer.getCameraOrbit()}`;
+      orbit.innerHTML = `Orbit: ${orbitToFixed(3)}`;
     });
 
     modelViewer.addEventListener('camera-change', (ev) => {
-      orbit.innerHTML = `Orbit: ${modelViewer.getCameraOrbit()}`;
+      orbit.innerHTML = `Orbit: ${orbitToFixed(3)}`;
     });
 
     frame.addEventListener('click', () => {
@@ -67,6 +69,16 @@
     scale.addEventListener('input', () => {
       modelViewer.scale = `${scale.value} ${scale.value} ${scale.value}`;
     });
+
+    roll.addEventListener('input', () => {
+      modelViewer.orientation = `${roll.value}deg 0deg 0deg`;
+    });
+
+    function orbitToFixed( precision ){
+      const cameraOrbit = modelViewer.getCameraOrbit();
+      str = `${cameraOrbit.theta.toFixed(precision)}rad ${cameraOrbit.phi.toFixed(precision)}rad ${cameraOrbit.radius.toFixed(precision)}m`
+      return str;
+    }
     </script>
 </body>
 </html>

@@ -51,12 +51,16 @@
     const reset = document.querySelector('#reset');
     
     reset.addEventListener("click", (ev) => {
+      modelViewer.orientation = `0rad ${Math.random() * Math.PI}rad 0rad`;
       modelViewer.resetTurntableRotation(0);
     })
     
     setInterval(()=>{
       const str = Math.floor(modelViewer.turntableRotation / Math.PI * 180);
-      yaw.innerHTML = `Yaw: ${str}deg`}, 100);
+      yaw.innerHTML = `Yaw: ${str}deg`;
+      console.log(modelViewer.orientation);
+    }, 100);
+
 </script>
 
 </body>
