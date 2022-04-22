@@ -38,23 +38,34 @@
   <!-- Use it like any other HTML element -->
   <model-viewer id="transform"
                 src="../../assets/canon-at.glb" 
-                alt="A chair">
+                camera-controls
+                alt="A camera">
     <div class="controls">
       <div>Scale: <input id="scale" value="1" size="3" class="number"></div>
+      <div id="orbit">Orbit: </div>
       <button id="frame">Update Framing</button>
     </div>            
   </model-viewer>
   <script>
-    const modelViewerTransform = document.querySelector("model-viewer#transform");
+    const modelViewer = document.querySelector("model-viewer#transform");
     const scale = document.querySelector('#scale');
     const frame = document.querySelector('#frame');
+    const orbit = document.querySelector('#orbit');
     
+    modelViewer.addEventListener('load', (ev) => {
+      orbit.innerHTML = `Orbit: ${modelViewer.getCameraOrbit()}`;
+    });
+
+    modelViewer.addEventListener('camera-change', (ev) => {
+      orbit.innerHTML = `Orbit: ${modelViewer.getCameraOrbit()}`;
+    });
+
     frame.addEventListener('click', () => {
-      modelViewerTransform.updateFraming();
+      modelViewer.updateFraming();
     });
     
     scale.addEventListener('input', () => {
-      modelViewerTransform.scale = `${scale.value} ${scale.value} ${scale.value}`;
+      modelViewer.scale = `${scale.value} ${scale.value} ${scale.value}`;
     });
     </script>
 </body>
