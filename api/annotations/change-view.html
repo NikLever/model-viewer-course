@@ -1,0 +1,137 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Model-viewer Course</title>
+  <meta name="description" content="Examples from my model-viewer course">
+  <meta name="author" content="Nik Lever">
+
+  <meta property="og:title" content="Model-viewer Course">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://niklever.com/courses/model-viewer">
+  <meta property="og:description" content="Examples from my model-viewer course">
+  <meta property="og:image" content="image.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32 " href="../../assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../../assets/favicon/site.webmanifest">
+
+  <link rel="stylesheet" href="../../css/styles.css">
+
+  <style>
+      model-viewer{
+          width: 600px;
+          height: 600px;
+          margin: 0 auto;
+      }
+
+      .Hotspot {
+          background: #fff;
+          border-radius: 32px;
+          border: 0;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+          box-sizing: border-box;
+          cursor: pointer;
+          height: 24px;
+          padding: 8px;
+          position: relative;
+          transition: opacity 0.3s;
+          width: 24px;
+      }
+
+      .Hotspot:not([data-visible]) {
+          background: transparent;
+          border: 4px solid #fff;
+          box-shadow: none;
+          height: 32px;
+          pointer-events: none;
+          width: 32px;
+      }
+
+      .Hotspot:focus {
+          border: 4px solid rgb(0, 128, 200);
+          height: 32px;
+          outline: none;
+          width: 32px;
+      }
+
+      .Hotspot > * {
+          opacity: 1;
+          transform: translateY(-50%);
+      }
+
+      .HotspotAnnotation{
+          background: #fff;
+          border-radius: 4px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+          color: rgba(0, 0, 0, 0.8);
+          display: block;
+          font-family: Futura, Helvetica Neue, sans-serif;
+          font-size: 12px;
+          font-weight: 700;
+          left: calc(100% + 1em);
+          max-width: 128px;
+          overflow-wrap: break-word;
+          padding: 0.5em 1em;
+          position: absolute;
+          top: 50%;
+          width: max-content;
+      }
+
+      .Hotspot:not([data-visible]) > * {
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(calc(-50% + 4px));
+          transition: transform 0.3s, opacity 0.3s;
+      }
+  </style>
+</head>
+
+<body>
+  <!-- Import the component -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <!-- Use it like any other HTML element -->
+  <model-viewer id="hotspot-camera-view-demo"
+                src="../../assets/workshop.glb"
+                camera-controls environment-image="neutral">
+    <button     class="Hotspot" 
+                slot="hotspot-1" 
+                data-position="0.279m 1.154m -0.520m" 
+                data-normal="-0.295m 0.1249m 0.947m" 
+                data-orbit="36.63deg 64.6deg 1m" 
+                data-target="0.25m 1.18m -0.35m" 
+                data-visibility-attribute="visible">
+        <div class="HotspotAnnotation">Chest</div>
+    </button>
+    <button     class="Hotspot" 
+                slot="hotspot-2" 
+                data-position="-0.465m 1.658m 1.689m" 
+                data-normal="0.845m 1.829e-8m 0.534m"
+                data-orbit="45.67deg 87.21deg 1m" 
+                data-target="-0.8m 1.8m 2.0m"  
+                data-visibility-attribute="visible">
+        <div class="HotspotAnnotation">Potions</div>
+    </button>
+
+    <script type="module">
+      const modelViewer = document.querySelector("#hotspot-camera-view-demo");
+      const annotationClicked = (annotation) => {
+        let dataset = annotation.dataset;
+        modelViewer.cameraTarget = dataset.target;
+        modelViewer.cameraOrbit = dataset.orbit;
+      }
+    
+      modelViewer.querySelectorAll('button').forEach((hotspot) => {
+        console.log("hello hotspot", hotspot);
+        hotspot.addEventListener('click', () => annotationClicked(hotspot));
+      });
+    </script>
+</model-viewer>
+
+</body>
+</html>

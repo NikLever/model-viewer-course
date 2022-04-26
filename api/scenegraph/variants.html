@@ -12,8 +12,8 @@
   <meta property="og:title" content="Model-viewer Course">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://niklever.com/courses/model-viewer">
-  <meta property="og:description" content="Examples from my model-viewer course">
-  <meta property="og:image" content="image.png">
+  <meta property="og:description" content="Variants example from my model-viewer course">
+  <meta property="og:image" content="../../images/og-image.png">
 
   <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32 " href="../../assets/favicon/favicon-32x32.png">
@@ -36,10 +36,33 @@
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <!-- Use it like any other HTML element -->
-  <model-viewer src="../../assets/knight.glb" 
+  <model-viewer id="variants"
+                src="../../assets/chair-variants.glb" 
                 camera-controls
-                enable-pan
-                alt="A cartoon knight"></model-viewer>
-
+                auto-rotate
+                interaction-prompt="none"
+                alt="A chair">
+    <div class="controls">
+      <div>Variant: <select id="variant"></select></div>
+    </div>
+  </model-viewer>
+  <script>
+  const modelViewerVariants = document.querySelector("model-viewer#variants");
+  const select = document.querySelector('#variant');
+  
+  modelViewerVariants.addEventListener('load', () => {
+    const names = modelViewerVariants.availableVariants;
+    for (const name of names) {
+      const option = document.createElement('option');
+      option.value = name;
+      option.textContent = name;
+      select.appendChild(option);
+    }
+  });
+  
+  select.addEventListener('input', (event) => {
+    modelViewerVariants.variantName = event.target.value === 'default' ? null : event.target.value;
+  });
+  </script>
 </body>
 </html>

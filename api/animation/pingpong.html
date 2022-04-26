@@ -24,7 +24,7 @@
 
   <style>
       model-viewer{
-          width: 800px;
+          width: 600px;
           height: 600px;
           margin: 0 auto;
       }
@@ -32,36 +32,21 @@
 </head>
 
 <body>
-  <!-- Import the component -->
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <!-- Import the component -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
-  <!-- Use it like any other HTML element -->
-  <model-viewer id="rotation"
-                src="../../assets/ar-shop/chair6.glb"
-                auto-rotate
-                auto-rotate-delay="1000"
-                rotation-per-second="60deg" 
-                alt="A chair">
-    <div id="yaw">Yaw: 0</div>  
-    <button id="reset">Reset Rotation</button>
-  </model-viewer>
-  <script>
-    const modelViewer = document.querySelector("#rotation");
-    const yaw = document.querySelector('#yaw');
-    const reset = document.querySelector('#reset');
+    <!-- Use it like any other HTML element -->
+    <model-viewer   id="gates"
+                    src="../../assets/gates.glb" 
+                    camera-controls
+                    interaction-prompt="none"
+                    alt="Gates"></model-viewer>
+    <script type="module">
+        const modelViewer = document.querySelector("#gates");
     
-    reset.addEventListener("click", (ev) => {
-      modelViewer.orientation = `0rad ${Math.random() * Math.PI}rad 0rad`;
-      modelViewer.resetTurntableRotation(0);
-    })
-    
-    setInterval(()=>{
-      const str = Math.floor(modelViewer.turntableRotation / Math.PI * 180);
-      yaw.innerHTML = `Yaw: ${str}deg`;
-      console.log(modelViewer.orientation);
-    }, 100);
-
-</script>
-
+        modelViewer.addEventListener("load", (ev) => {
+            modelViewer.play({ pingpong: true });
+        });
+    </script>
 </body>
 </html>
