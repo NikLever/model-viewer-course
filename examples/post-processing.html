@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Model-viewer Course</title>
+  <meta name="description" content="Examples from my model-viewer course">
+  <meta name="author" content="Nik Lever">
+
+  <meta property="og:title" content="Model-viewer Course">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://niklever.com/courses/model-viewer">
+  <meta property="og:description" content="Examples from my model-viewer course">
+  <meta property="og:image" content="image.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32 " href="../assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../assets/favicon/site.webmanifest">
+
+  <link rel="stylesheet" href="../css/styles.css">
+
+  <style>
+      model-viewer{
+          width: 400px;
+          height: 600px;
+          margin: 0 auto;
+      }
+  </style>
+</head>
+
+<body>
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.7.1/dist/es-module-shims.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@^0.154.0/build/three.module.min.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@^0.154.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <!-- Import the component -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer/dist/model-viewer-module.min.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer-effects/dist/model-viewer-effects.min.js"></script>
+  
+    <!-- Use the <effect-composer> component inside the <model-viewer> element -->
+    <model-viewer id="knight" autoplay ar camera-controls touch-action="pan-y" src="../assets/knight.glb" 
+                  animation-name="Dance" environment-image="neutral" alt="A cartoon knight dancing.">
+        <effect-composer>
+        <pixelate-effect granularity="10"></pixelate-effect>
+        </effect-composer>
+    </model-viewer>
+
+    <script type="module">
+        import { GUI } from "three/addons/libs/lil-gui.module.min.js";
+
+        const options = {
+            granularity: 10
+        }
+        const gui = new GUI();
+        gui.add( options, 'granularity', 1, 30, 1).onChange( value => {
+            effect.granularity = value;
+        })
+
+        const modelViewer = document.querySelector("model-viewer#knight");
+        const effect = modelViewer.querySelector('pixelate-effect');
+
+        modelViewer.addEventListener("load", (ev) => {
+          let material = modelViewer.model.getMaterialByName('CubeMat');
+          material.pbrMetallicRoughness.setBaseColorFactor([1,1,1,0]);
+        })
+    </script>
+</body>
+</html>
