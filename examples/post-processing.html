@@ -50,7 +50,14 @@
     <model-viewer id="knight" autoplay ar camera-controls touch-action="pan-y" src="../assets/knight.glb" 
                   animation-name="Dance" environment-image="neutral" alt="A cartoon knight dancing.">
         <effect-composer>
-        <pixelate-effect granularity="10"></pixelate-effect>
+            <bloom-effect blend-mode="skip"></bloom-effect>
+            <selective-bloom-effect blend-mode="skip"></selective-bloom-effect>
+            <pixelate-effect></pixelate-effect>
+            <color-grade-effect blend-mode="skip"></color-grade-effect>
+            <outline-effect blend-mode="skip"></outline-effect>
+            <glitch-effect blend-mode="skip"></pixelate-effect>
+            <ssao-effect blend-mode="skip"></ssao-effect>
+            <smaa-effect blend-mode="skip"></smaa-effect>
         </effect-composer>
     </model-viewer>
 
@@ -58,15 +65,78 @@
         import { GUI } from "three/addons/libs/lil-gui.module.min.js";
 
         const options = {
-            granularity: 10
+            bloom: { enabled: false, strength: 1, threshold: 1, radius: 0.85 },
+            pixelate: { enabled: true, granularity: 10 },
+            colorGrade: { enabled: false, tonemapping: 'aces_filmic', brightness: 0, contrast: 0, saturation: 0, hue: 0 },
+            outline: { enabled: false },
+            glitch: { enabled: false },
+            ssao: { enabled: false },
+            smaa: { enabled: false }
         }
         const gui = new GUI();
-        gui.add( options, 'granularity', 1, 30, 1).onChange( value => {
-            effect.granularity = value;
+        const ui = {};
+
+        ui.bloom = gui.addFolder('bloom');
+        ui.bloom.add( options.bloom, 'enabled' ).onChange( value => {
+            bloom.blendMode = ( value ) ? 'default' : "skip";
+        });
+        ui.bloom.add( options.bloom, 'strength', 0, 10).onChange( value => {
+            bloom.strength = value;
+        });
+        ui.bloom.add( options.bloom, 'threshold', 0, 1).onChange( value => {
+            bloom.threshold = value;
+        });
+        ui.bloom.add( options.bloom, 'radius', 0, 1).onChange( value => {
+            bloom.radius = value;
+        });
+
+        ui.pixelate = gui.addFolder('pixelate');
+        ui.pixelate.add( options.pixelate, 'enabled' ).onChange( value => {
+            pixelate.blendMode = ( value ) ? 'default' : "skip";
+        });
+        ui.pixelate.add( options.pixelate, 'granularity', 1, 30, 1).onChange( value => {
+            pixelate.granularity = value;
+        });
+
+        ui.colorGrade = gui.addFolder('color grade');
+        ui.colorGrade.add( options.colorGrade, 'enabled' ).onChange( value => {
+            colorGrade.blendMode = ( value ) ? 'default' : "skip";
+        });
+        ui.colorGrade.add( options.colorGrade, 'tonemapping', ['reinhard', 'reinhard2', reinhard2_adaptive, optimized_cineon, aces_filmic, none]).onChange( value => {
+            colorGrade.radius = value;
+        });
+        ui.colorGrade.add( options.colorGrade, 'radius', 0, 1).onChange( value => {
+            colorGrade.radius = value;
+        });
+
+        ui.outline = gui.addFolder('outline');
+        ui.outline.add( options.bloom, 'enabled' ).onChange( value => {
+            outlinem.blendMode = ( value ) ? 'default' : "skip";
+        });
+
+        ui.glitch = gui.addFolder('glitch');
+        ui.glitch.add( options.glitch, 'enabled' ).onChange( value => {
+            glitch.blendMode = ( value ) ? 'default' : "skip";
+        });
+
+        ui.ssao = gui.addFolder('ssao');
+        ui.ssao.add( options.ssao, 'enabled' ).onChange( value => {
+            ssao.blendMode = ( value ) ? 'default' : "skip";
+        });
+
+        ui.smaa = gui.addFolder('smaa');
+        ui.smaa.add( options.smaa, 'enabled' ).onChange( value => {
+            smaa.blendMode = ( value ) ? 'default' : "skip";
         })
 
         const modelViewer = document.querySelector("model-viewer#knight");
-        const effect = modelViewer.querySelector('pixelate-effect');
+        const bloom = modelViewer.querySelector('bloom-effect');
+        const pixelate = modelViewer.querySelector('pixelate-effect');
+        const colorGrade = modelViewer.querySelector('color-grade-effect');
+        const outline = modelViewer.querySelector('outline-effect');
+        const glitch = modelViewer.querySelector('glitch-effect');
+        const ssao = modelViewer.querySelector('ssao-effect');
+        const smaa = modelViewer.querySelector('smaa-effect');
 
         modelViewer.addEventListener("load", (ev) => {
           let material = modelViewer.model.getMaterialByName('CubeMat');
