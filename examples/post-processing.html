@@ -68,15 +68,15 @@
             bloom: { enabled: false, strength: 1, threshold: 1, radius: 0.85 },
             pixelate: { enabled: true, granularity: 10 },
             colorGrade: { enabled: false, tonemapping: 'aces_filmic', brightness: 0, contrast: 0, saturation: 0, hue: 0 },
-            outline: { enabled: false },
-            glitch: { enabled: false },
-            ssao: { enabled: false },
-            smaa: { enabled: false }
+            outline: { enabled: false, strength: 1, color: '#ffffff', smoothing: 1 },
+            glitch: { enabled: false, strength: 0.5, mode: 'sporadic' },
+            ssao: { enabled: false, strength: 2 },
+            smaa: { enabled: false, quality: 'medium' }
         }
-        const gui = new GUI();
+        const gui = new GUI({ title: 'Effects' });
         const ui = {};
 
-        ui.bloom = gui.addFolder('bloom');
+        ui.bloom = gui.addFolder('bloom').close();
         ui.bloom.add( options.bloom, 'enabled' ).onChange( value => {
             bloom.blendMode = ( value ) ? 'default' : "skip";
         });
@@ -97,37 +97,67 @@
         ui.pixelate.add( options.pixelate, 'granularity', 1, 30, 1).onChange( value => {
             pixelate.granularity = value;
         });
-
-        ui.colorGrade = gui.addFolder('color grade');
+    
+        ui.colorGrade = gui.addFolder('color grade').close();
         ui.colorGrade.add( options.colorGrade, 'enabled' ).onChange( value => {
             colorGrade.blendMode = ( value ) ? 'default' : "skip";
         });
-        ui.colorGrade.add( options.colorGrade, 'tonemapping', ['reinhard', 'reinhard2', reinhard2_adaptive, optimized_cineon, aces_filmic, none]).onChange( value => {
-            colorGrade.radius = value;
+        ui.colorGrade.add( options.colorGrade, 'tonemapping', ['reinhard', 'reinhard2', 'reinhard2_adaptive', 'optimized_cineon', 'aces_filmic', 'none']).onChange( value => {
+            colorGrade.tonemapping = value;
         });
-        ui.colorGrade.add( options.colorGrade, 'radius', 0, 1).onChange( value => {
-            colorGrade.radius = value;
+        ui.colorGrade.add( options.colorGrade, 'brightness', 0, 1).onChange( value => {
+            colorGrade.brightness = value;
         });
-
-        ui.outline = gui.addFolder('outline');
-        ui.outline.add( options.bloom, 'enabled' ).onChange( value => {
-            outlinem.blendMode = ( value ) ? 'default' : "skip";
+        ui.colorGrade.add( options.colorGrade, 'contrast', -1, 1).onChange( value => {
+            colorGrade.contrast = value;
         });
-
-        ui.glitch = gui.addFolder('glitch');
+        ui.colorGrade.add( options.colorGrade, 'saturation', -1, 1).onChange( value => {
+            colorGrade.satruration = value;
+        });
+        ui.colorGrade.add( options.colorGrade, 'hue', 0, Math.PI*2).onChange( value => {
+            colorGrade.hue = value;
+        });
+    
+        ui.outline = gui.addFolder('outline').close();
+        ui.outline.add( options.outline, 'enabled' ).onChange( value => {
+            outline.blendMode = ( value ) ? 'default' : "skip";
+        });
+        ui.outline.add( options.outline, 'strength', 0, 10).onChange( value => {
+            outline.strength = value;
+        });
+        ui.outline.addColor( options.outline, 'color').onChange( value => {
+            outline.color = value;
+        });
+        ui.outline.add( options.outline, 'smoothing', 0, 6).onChange( value => {
+            outline.smoothing = value;
+        });
+    
+        ui.glitch = gui.addFolder('glitch').close();
         ui.glitch.add( options.glitch, 'enabled' ).onChange( value => {
             glitch.blendMode = ( value ) ? 'default' : "skip";
         });
-
-        ui.ssao = gui.addFolder('ssao');
+        ui.glitch.add( options.glitch, 'strength', 0, 1).onChange( value => {
+            glitch.strength = value;
+        });
+        ui.glitch.add( options.glitch, 'mode', ['sporadic', 'constant']).onChange( value => {
+            glitch.mode = value;
+        });
+    
+        ui.ssao = gui.addFolder('ssao').close();
         ui.ssao.add( options.ssao, 'enabled' ).onChange( value => {
             ssao.blendMode = ( value ) ? 'default' : "skip";
         });
+        ui.ssao.add( options.ssao, 'strength', 0, 100).onChange( value => {
+            ssao.strength = value;
+        });
 
-        ui.smaa = gui.addFolder('smaa');
+        ui.smaa = gui.addFolder('smaa').close();
         ui.smaa.add( options.smaa, 'enabled' ).onChange( value => {
             smaa.blendMode = ( value ) ? 'default' : "skip";
-        })
+        });
+        ui.smaa.add( options.smaa, 'quality', ['low','medium','high','ultra']).onChange( value => {
+            smaa.quality = value;
+        });
 
         const modelViewer = document.querySelector("model-viewer#knight");
         const bloom = modelViewer.querySelector('bloom-effect');
